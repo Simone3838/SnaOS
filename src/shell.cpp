@@ -1,3 +1,4 @@
+#include "filesystem.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,6 +11,9 @@ void start_gui();
 void start_cursor();
 void start_cursor_sprite();
 void start_minesweeper();
+
+// Global file system instance
+FileSystem fs;
 
 // Function to split input into tokens
 std::vector<std::string> split(const std::string& str, char delimiter) {
@@ -46,6 +50,47 @@ void execute_command(const std::vector<std::string>& args) {
         start_cursor_sprite();
     } else if (args[0] == "minesweeper") {
         start_minesweeper();
+    } else if (args[0] == "create") {
+        if (args.size() < 3) {
+            std::cout << "Usage: create <path> <name> <dir/file>" << std::endl;
+            return;
+        }
+        bool isDirectory = (args[3] == "dir");
+        if (fs.createFile(args[1], args[2], isDirectory)) {
+            std::cout << "Created " << (isDirectory ? "directory" : "file") << ": " << args[2] << std::endl;
+        } else {
+            std::cout << "Failed to create " << args[2] << std::endl;
+        }
+    } else if (args[0] == "write") {
+        if (args.size() < 4) {
+            std::cout << "Usage: write <path> <name> <content>" << std::endl;
+            return;
+        }
+        File* file = fs.findFile(args[1] + "/" + args[2]);
+        if (file) {
+            fs.writeFile(file, args[3]);
+            std::cout << "Written to file: " << args[2] << std::endl;
+        } else {
+            std::cout << "File not found: " << args[2] << std::endl;
+        }
+    } else if (args[0] == "read") {
+        if (args.size() < 3) {
+            std::cout << "Usage: read <path> <name>" << std::endl;
+            return;
+        }
+        File* file = fs.findFile(args[1] + "/" + args[2]);
+        if (file) {
+            std::cout << "Content of " << args[2] << ": " << fs.readFile(file) << std::endl;
+        } else {
+            std::cout << "File not found: " << args[2] << std::endl;
+        }
+    } else if (args[0] == "delete") {
+        if (args.size() < 3) {
+            std::cout << "Usage: delete <path> <name>" << std::endl;
+            return;
+        }
+        fs.deleteFile(args[1], args[2]);
+        std::cout << "Deleted: " << args[2] << std::endl;
     } else {
         std::cout << "Unknown command: " << args[0] << std::endl;
     }
