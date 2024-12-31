@@ -19,7 +19,7 @@ bool login() {
         std::cout << "Login successful!" << std::endl;
         return true;
     } else {
-        std::cout << "Login failed. Incorrect username or password." << std::endl;
+        std::cout << "Login failure: unknown user or bad password" << std::endl;
         return false;
     }
 }
