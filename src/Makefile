@@ -32,7 +32,10 @@ gui.o: gui.cpp
 cursor.o: cursor.cpp
     $(CXX) $(CXXFLAGS) -c $< -o $@
 
-kernel.bin: kernel.o shell.o login.o clock.o bouncingball.o gui.o cursor.o
+cursorsprite.o: cursorsprite.cpp
+    $(CXX) $(CXXFLAGS) -c $< -o $@
+
+kernel.bin: kernel.o shell.o login.o clock.o bouncingball.o gui.o cursor.o cursorsprite.o
     $(LD) $(LDFLAGS) $^ -o $@
 
 os-image.bin: boot.o kernel.bin
