@@ -4,9 +4,13 @@ An OS made in c
 # How to compile it
 make sure you have:
 nasm
+
 i386-elf-g++
+
 i386-elf-ld
+
 grub-mkrescure
+
 then clone the resp
 ```
 git clone https://github.com/Simone3838/SnaOS.git
