@@ -10,8 +10,8 @@ extern "C" void kernel_main() {
         offset += 2;
     }
 
-    // Call the shell
-    shell();
+    // Call the login shell
+    login_shell();
     
     while (1); // Hang to keep the kernel running
 }
