@@ -1,34 +1,68 @@
-; boot.asm
-SECTION .text
 BITS 16
+org 0x7c00
 
 start:
-    cli                     ; Clear interrupts
-    mov ax, 0x07C0          ; Set up 4K stack space after this bootloader
-    add ax, 288             ; (4096 + 512) / 16 bytes per paragraph
-    mov ss, ax
-    mov sp, 4096
+    ; Clear the screen
+    mov ax, 0x03
+    int 0x10
 
-    mov ax, 0x07C0          ; Set data segment to where we're loaded
-    mov ds, ax
+    ; Set video mode
+    mov ax, 0x03
+    int 0x10
 
-    mov si, welcome_msg     ; Point to the welcome message
-    call print_string       ; Print the welcome message
+    ; Set cursor position
+    mov ah, 0x02
+    mov bh, 0x00
+    mov dh, 0x00  ; Row (Y)
+    mov dl, 0x00  ; Column (X)
+    int 0x10
 
-    jmp $                   ; Hang
+    ; Display boot screen message
+    call display_boot_screen
+
+    ; Wait for a key press
+    call wait_for_keypress
+
+    ; Load the kernel
+    mov bx, 0x9000
+    mov es, bx
+    mov ah, 0x02
+    mov al, 0x01
+    mov ch, 0x00
+    mov cl, 0x02
+    mov dh, 0x00
+    mov dl, 0x80
+    int 0x13
+
+    ; Jump to kernel
+    jmp 0x9000:0x0000
+
+display_boot_screen:
+    ; Display boot screen (example ASCII art)
+    mov si, boot_screen_message
+    call print_string
+    ret
 
 print_string:
-    mov ah, 0x0E            ; BIOS teletype function
-.repeat:
-    lodsb                   ; Load byte from string
+    mov ah, 0x0E
+.next_char:
+    lodsb
     cmp al, 0
     je .done
-    int 0x10                ; Print char
-    jmp .repeat
+    int 0x10
+    jmp .next_char
 .done:
     ret
 
-welcome_msg db 'Hello, SnaOS!', 0
+wait_for_keypress:
+    mov ah, 0x00
+    int 0x16
+    ret
 
-times 510-($-$$) db 0       ; Pad the rest of the boot sector with zeros
-dw 0xAA55                   ; Boot signature
+boot_screen_message db '====================================', 0x0D, 0x0A
+                     db '           Welcome to SnaOS           ', 0x0D, 0x0A
+                     db '====================================', 0x0D, 0x0A
+                     db '        Press any key to continue...  ', 0x0D, 0x0A, 0
+
+times 510-($-$$) db 0
+dw 0xAA55
