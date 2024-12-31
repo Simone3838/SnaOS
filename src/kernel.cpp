@@ -1,17 +1,18 @@
+#include <iostream>
+
+// Function to set the background color to green
+void setBackgroundColor() {
+    // Set background color to green (color attribute 0x20)
+    std::cout << "\033[42m"; // ANSI escape code for green background
+}
+
+// Kernel main function
 extern "C" void kernel_main() {
-    // Initialize video memory (printing "Hello, SnaOS!" is optional now)
-    const char* str = "Hello, SnaOS!";
-    char* video_memory = (char*)0xb8000;
-    int offset = 0;
+    setBackgroundColor();
 
-    while (*str != 0) {
-        video_memory[offset] = *str++;
-        video_memory[offset + 1] = 0x07; // Attribute byte: light gray on black
-        offset += 2;
-    }
+    // Display a message to confirm the background color has been set
+    std::cout << "Background color set to green!" << std::endl;
 
-    // Call the login shell
-    login_shell();
-    
-    while (1); // Hang to keep the kernel running
+    // Continue with the rest of the kernel initialization
+    shell_login()
 }
