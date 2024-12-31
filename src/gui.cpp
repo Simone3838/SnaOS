@@ -28,18 +28,35 @@ void drawWindow(int x, int y, int width, int height, const std::string& title, c
     std::cout << "\033[" << (y + height - 1) << ";" << x << "H" << "+" << std::string(width - 2, '-') << "+";
 }
 
-// Function to simulate a basic GUI
+// Function to draw a button
+void drawButton(int x, int y, const std::string& label, bool pressed) {
+    std::string button = "[ " + label + " ]";
+    if (pressed) {
+        button = "[*" + label + "*]";
+    }
+    std::cout << "\033[" << y << ";" << x << "H" << button;
+}
+
+// Function to simulate a basic GUI with a button test
 void gui() {
     clearScreen();
     
     // Draw main window
-    drawWindow(5, 2, 40, 10, "Main Window", "Welcome to SnaOS!");
+    drawWindow(5, 2, 40, 10, "Main Window", "Press Enter to press the button");
     
     // Draw button
-    drawWindow(10, 14, 20, 3, "", "[ OK ]");
+    bool buttonPressed = false;
+    drawButton(20, 14, "OK", buttonPressed);
     
-    // Wait for user input
-    std::cin.get();
+    // Wait for user input and handle button press
+    char input;
+    while (true) {
+        input = std::cin.get();
+        if (input == '\n') {
+            buttonPressed = !buttonPressed;
+            drawButton(20, 14, "OK", buttonPressed);
+        }
+    }
 }
 
 extern "C" void start_gui() {
