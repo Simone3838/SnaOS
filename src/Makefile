@@ -17,7 +17,10 @@ kernel.o: kernel.cpp
 shell.o: shell.cpp
     $(CXX) $(CXXFLAGS) -c $< -o $@
 
-kernel.bin: kernel.o shell.o
+login.o: login.cpp
+    $(CXX) $(CXXFLAGS) -c $< -o $@
+
+kernel.bin: kernel.o shell.o login.o
     $(LD) $(LDFLAGS) $^ -o $@
 
 os-image.bin: boot.o kernel.bin
