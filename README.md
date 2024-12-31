@@ -10,6 +10,10 @@ basic shell
 
 clock
 
+cursor shell
+
+gui (beta)
+
 # How to compile it
 make sure you have:
 nasm
