@@ -1,34 +1,51 @@
 #include <iostream>
 #include <string>
 
-// Function to simulate user login
-bool login() {
-    std::string username;
-    std::string password;
+// Function declarations
+void shell();  // Assuming shell() is defined elsewhere
 
-    std::cout << "Username: ";
-    std::cin >> username;
-    std::cout << "Password: ";
-    std::cin >> password;
-
-    // Hardcoded credentials for demonstration purposes
-    const std::string correct_username = "simone";
-    const std::string correct_password = "1234";
-
-    if (username == correct_username && password == correct_password) {
-        std::cout << "Login successful!" << std::endl;
-        return true;
-    } else {
-        std::cout << "Login failure: unknown user or bad password" << std::endl;
-        return false;
-    }
+// Function to clear the screen (platform dependent)
+void clearScreen() {
+    std::cout << "\033[2J\033[1;1H";
 }
 
-extern "C" void login_shell() {
-    while (!login()) {
-        // Retry login
+// Function to display a welcome screen
+void displayWelcomeScreen() {
+    clearScreen();
+    std::cout << "====================================" << std::endl;
+    std::cout << "          Welcome to SnaOS          " << std::endl;
+    std::cout << "====================================" << std::endl;
+    std::cout << "Type 'help' to see available commands" << std::endl;
+    std::cout << "====================================" << std::endl;
+}
+
+// Simple login function
+void login() {
+    std::string username;
+    std::string password;
+    bool success = false;
+
+    while (!success) {
+        std::cout << "Username: ";
+        std::cin >> username;
+        std::cout << "Password: ";
+        std::cin >> password;
+
+        // Simple authentication check
+        if (username == "admin" && password == "password") {
+            success = true;
+        } else {
+            std::cout << "Invalid credentials, please try again." << std::endl;
+        }
     }
 
-    // Once logged in, proceed to the shell
+    // Display welcome screen after successful login
+    displayWelcomeScreen();
+
+    // Proceed to shell
     shell();
+}
+
+extern "C" void start_login() {
+    login();
 }
