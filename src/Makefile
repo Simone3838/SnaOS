@@ -29,7 +29,10 @@ bouncingball.o: bouncingball.cpp
 gui.o: gui.cpp
     $(CXX) $(CXXFLAGS) -c $< -o $@
 
-kernel.bin: kernel.o shell.o login.o clock.o bouncingball.o gui.o
+cursor.o: cursor.cpp
+    $(CXX) $(CXXFLAGS) -c $< -o $@
+
+kernel.bin: kernel.o shell.o login.o clock.o bouncingball.o gui.o cursor.o
     $(LD) $(LDFLAGS) $^ -o $@
 
 os-image.bin: boot.o kernel.bin
