@@ -1,0 +1,24 @@
+# Makefile
+CXX=i386-elf-g++
+LD=i386-elf-ld
+AS=nasm
+
+CXXFLAGS=-ffreestanding -O2 -Wall -Wextra
+LDFLAGS=-T linker.ld -nostdlib
+
+all: os-image.bin
+
+boot.o: boot.asm
+    $(AS) -f bin $< -o $@
+
+kernel.o: kernel.cpp
+    $(CXX) $(CXXFLAGS) -c $< -o $@
+
+kernel.bin: kernel.o
+    $(LD) $(LDFLAGS) $< -o $@
+
+os-image.bin: boot.o kernel.bin
+    cat $^ > $@
+
+clean:
+    rm -f *.o *.bin
