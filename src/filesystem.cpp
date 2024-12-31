@@ -5,6 +5,12 @@
 
 FileSystem::FileSystem() {
     root = new File("root", true);
+
+    // Create the Readme.txt file in the root directory with the welcome message
+    File* readme = createFile("/", "Readme.txt", false);
+    if (readme) {
+        writeFile(readme, "Welcome to SnaOS!");
+    }
 }
 
 File* FileSystem::createFile(const std::string& path, const std::string& name, bool isDirectory) {
