@@ -23,7 +23,10 @@ login.o: login.cpp
 clock.o: clock.cpp
     $(CXX) $(CXXFLAGS) -c $< -o $@
 
-kernel.bin: kernel.o shell.o login.o clock.o
+bouncingball.o: bouncingball.cpp
+    $(CXX) $(CXXFLAGS) -c $< -o $@
+
+kernel.bin: kernel.o shell.o login.o clock.o bouncingball.o
     $(LD) $(LDFLAGS) $^ -o $@
 
 os-image.bin: boot.o kernel.bin
