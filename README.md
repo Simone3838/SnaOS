@@ -32,3 +32,5 @@ after doing that, run:
 ```
 qemu-system-i386 -cdrom snaos.iso
 ```
+
+Please give me a star
