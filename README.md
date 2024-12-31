@@ -1,5 +1,5 @@
 # SnaOS
-An OS made in c
+An OS made in c++
 
 # features
 Grub bootloader
