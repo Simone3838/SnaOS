@@ -1,6 +1,12 @@
 # SnaOS
 An OS made in c
 
+# features
+Grub bootloader
+login
+basic shell
+clock
+
 # How to compile it
 make sure you have:
 nasm
