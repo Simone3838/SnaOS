@@ -35,7 +35,10 @@ cursor.o: cursor.cpp
 cursorsprite.o: cursorsprite.cpp
     $(CXX) $(CXXFLAGS) -c $< -o $@
 
-kernel.bin: kernel.o shell.o login.o clock.o bouncingball.o gui.o cursor.o cursorsprite.o
+minesweeper.o: minesweeper.cpp
+    $(CXX) $(CXXFLAGS) -c $< -o $@
+
+kernel.bin: kernel.o shell.o login.o clock.o bouncingball.o gui.o cursor.o cursorsprite.o minesweeper.o
     $(LD) $(LDFLAGS) $^ -o $@
 
 os-image.bin: boot.o kernel.bin
