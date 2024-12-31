@@ -14,5 +14,5 @@ extern "C" void kernel_main() {
     std::cout << "Background color set to green!" << std::endl;
 
     // Continue with the rest of the kernel initialization
-    shell_login()
+    login()
 }
