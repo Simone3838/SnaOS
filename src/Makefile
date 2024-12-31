@@ -14,8 +14,11 @@ boot.o: boot.asm
 kernel.o: kernel.cpp
     $(CXX) $(CXXFLAGS) -c $< -o $@
 
-kernel.bin: kernel.o
-    $(LD) $(LDFLAGS) $< -o $@
+shell.o: shell.cpp
+    $(CXX) $(CXXFLAGS) -c $< -o $@
+
+kernel.bin: kernel.o shell.o
+    $(LD) $(LDFLAGS) $^ -o $@
 
 os-image.bin: boot.o kernel.bin
     cat $^ > $@
