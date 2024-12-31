@@ -23,3 +23,8 @@ cp kernel.bin isodir/boot/kernel.bin
 cp grub.cfg isodir/boot/grub/grub.cfg
 grub-mkrescue -o snaos.iso isodir
 ```
+
+after doing that, run:
+```
+qemu-system-i386 -cdrom snaos.iso
+```
