@@ -15,5 +15,6 @@ extern "C" void kernel_main() {
 
     // Continue with the rest of the kernel initialization
     login_shell()
+    
     while(1)
 }
