@@ -3,8 +3,11 @@ An OS made in c
 
 # features
 Grub bootloader
+
 login
+
 basic shell
+
 clock
 
 # How to compile it
