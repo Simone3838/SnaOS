@@ -12,8 +12,8 @@ bool login() {
     std::cin >> password;
 
     // Hardcoded credentials for demonstration purposes
-    const std::string correct_username = "admin";
-    const std::string correct_password = "password";
+    const std::string correct_username = "simone";
+    const std::string correct_password = "1234";
 
     if (username == correct_username && password == correct_password) {
         std::cout << "Login successful!" << std::endl;
