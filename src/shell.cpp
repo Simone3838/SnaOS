@@ -94,6 +94,13 @@ void execute_command(const std::vector<std::string>& args) {
         }
         fs.deleteFile(args[1], args[2]);
         std::cout << "Deleted: " << args[2] << std::endl;
+    } else if (args[0] == "readme") {
+        File* file = fs.findFile("/Readme.txt");
+        if (file) {
+            std::cout << "Content of Readme.txt: " << fs.readFile(file) << std::endl;
+        } else {
+            std::cout << "Readme.txt not found." << std::endl;
+        }
     } else {
         std::cout << "Unknown command: " << args[0] << std::endl;
     }
