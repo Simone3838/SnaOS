@@ -6,6 +6,7 @@
 // Function declarations
 void clock();
 void bouncing_ball();
+void start_gui();
 
 // Function to split input into tokens
 std::vector<std::string> split(const std::string& str, char delimiter) {
@@ -34,6 +35,8 @@ void execute_command(const std::vector<std::string>& args) {
         clock();
     } else if (args[0] == "bouncingball") {
         bouncing_ball();
+    } else if (args[0] == "gui") {
+        start_gui();
     } else {
         std::cout << "Unknown command: " << args[0] << std::endl;
     }
