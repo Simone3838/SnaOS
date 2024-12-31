@@ -11,6 +11,7 @@ void start_gui();
 void start_cursor();
 void start_cursor_sprite();
 void start_minesweeper();
+void start_sheepsay();
 
 // Global file system instance
 FileSystem fs;
@@ -50,6 +51,8 @@ void execute_command(const std::vector<std::string>& args) {
         start_cursor_sprite();
     } else if (args[0] == "minesweeper") {
         start_minesweeper();
+    } else if (args[0] == "sheepsay") {
+        start_sheepsay();
     } else if (args[0] == "create") {
         if (args.size() < 3) {
             std::cout << "Usage: create <path> <name> <dir/file>" << std::endl;
