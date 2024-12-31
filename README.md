@@ -14,6 +14,12 @@ cursor shell
 
 gui (beta)
 
+cursor sprite
+
+minesweeper game
+
+filesystem
+
 # How to compile it
 make sure you have:
 nasm
